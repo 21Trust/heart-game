@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heart Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>❤️ Heart Game ❤️</h1>
+
+  <!-- LOGIN SCREEN -->
+  <div id="loginScreen">
+    <p id="instruction">
+  💡 Welcome to the Heart Game! Count the hearts in each puzzle and enter the correct number to score points.
+</p>
+    <input type="text" id="playerName" placeholder="Enter your name" />
+    <button id="startBtn">Start Game</button>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div id="gameScreen" style="display:none;">
+    <p id="welcomeMsg"></p>
+
+    <img id="puzzleImage" alt="Heart Puzzle" />
+
+    <br />
+
+    <input type="text" id="answerInput" placeholder="Your answer" />
+    <button id="submitBtn">Submit</button>
+    <button id="nextBtn">Next Puzzle</button>
+
+    <p id="feedback"></p>
+    <p id="score"></p>
+    <p id="timer"></p>
+
+    <div id="leaderboard"></div>
+
+    <!-- LOGOUT BUTTON -->
+    <button id="logoutBtn" style="margin-top:15px; background-color:black;">Logout</button>
+  </div>
+
+  <!-- MAIN SCRIPT -->
+  <script type="module">
+    import { GameManager } from "./gameManager.js";
+
+    const game = new GameManager();
+
+    // START GAME
+    document.getElementById("startBtn").addEventListener("click", () => {
+      const name = document.getElementById("playerName").value.trim();
+
+      if (name === "") {
+        alert("Please enter your name to start!");
+        return;
+      }
+
+      game.startGame(name);
+    });
+
+    // SUBMIT ANSWER
+    document.getElementById("submitBtn").addEventListener("click", () => {
+      game.submitAnswer();
+    });
+
+    // NEXT PUZZLE
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      game.loadPuzzle();
+    });
+
+    // LOGOUT
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      game.logout();
+    });
+  </script>
+</body>
+</html>
